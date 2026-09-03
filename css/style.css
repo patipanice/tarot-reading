@@ -1,251 +1,1252 @@
-* {
+/* ============================================================
+   ดูดวงไพ่ยิบซี — stylesheet
+   ============================================================ */
+
+/* ---------- 1. Reset & base ---------- */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  min-height: 100%;
-  background: radial-gradient(circle at top, #241246 0%, #0f0620 70%);
-  color: #f2e9ff;
-  font-family: "Trebuchet MS", "Sarabun", "Segoe UI", sans-serif;
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
-.app {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 24px 16px 64px;
+body {
+  margin: 0;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  background-color: var(--void);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-.app-header {
-  text-align: center;
-  margin-bottom: 24px;
+/* ผ้ากำมะหยี่: ไล่เฉดจากกลางบน + ฝุ่นดาวจาง ๆ ทำด้วย gradient ล้วน ไม่ใช้ไฟล์ภาพ */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(1px 1px at 18% 22%, rgba(232, 214, 166, 0.5), transparent),
+    radial-gradient(1px 1px at 72% 14%, rgba(232, 214, 166, 0.38), transparent),
+    radial-gradient(1px 1px at 41% 63%, rgba(232, 214, 166, 0.3), transparent),
+    radial-gradient(1px 1px at 88% 47%, rgba(232, 214, 166, 0.42), transparent),
+    radial-gradient(1px 1px at 9% 78%, rgba(232, 214, 166, 0.3), transparent),
+    radial-gradient(1px 1px at 61% 88%, rgba(232, 214, 166, 0.34), transparent),
+    radial-gradient(120% 80% at 50% -10%, #241645 0%, #120c26 42%, var(--void) 78%);
 }
 
-.app-header h1 {
-  font-size: 2rem;
-  margin: 0 0 8px;
-  background: linear-gradient(90deg, #ffd97a, #ff8ac9, #a48bff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+img {
+  max-width: 100%;
+  display: block;
 }
 
-.subtitle {
-  color: #d7c6ff;
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gilt);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* ---------- 2. Typography ---------- */
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.25;
   margin: 0;
 }
 
-main {
-  flex: 1;
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--gilt);
+  margin: 0;
 }
 
-.step h2 {
-  font-size: 1.3rem;
-  margin-bottom: 4px;
+.lede {
+  color: var(--text-dim);
+  max-width: var(--measure);
+  margin: var(--sp-3) 0 0;
 }
 
-.hint {
-  color: #b7a3e0;
-  margin-top: 0;
-  font-size: 0.9rem;
+.numeral {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-wide);
+  font-variant-numeric: lining-nums;
 }
 
-.option-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 12px;
-  margin: 16px 0;
+/* ---------- 3. Shell ---------- */
+
+.shell {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: var(--sp-5) var(--sp-4) var(--sp-8);
 }
 
-.option-card {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 14px;
-  padding: 20px 14px;
-  color: #f2e9ff;
-  font-size: 1rem;
-  cursor: pointer;
+.masthead {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--gilt-hair);
+}
+
+.wordmark {
+  display: flex;
   align-items: center;
-  gap: 8px;
-  transition: transform 0.15s ease, background 0.15s ease;
-  text-align: center;
+  gap: var(--sp-3);
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  letter-spacing: 0.04em;
+  color: var(--stock);
+  text-decoration: none;
 }
 
-.option-card:hover {
-  background: rgba(255, 255, 255, 0.14);
-  transform: translateY(-2px);
+.wordmark__mark {
+  width: 1.6em;
+  height: 1.6em;
+  flex: none;
+  color: var(--gilt);
 }
 
-.option-card-wide {
-  grid-column: span 1;
-  align-items: flex-start;
-  text-align: left;
-}
-
-.option-icon {
-  font-size: 1.8rem;
-}
-
-.option-desc {
-  color: #c9b8ef;
-  font-size: 0.85rem;
-}
-
-textarea {
-  width: 100%;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.06);
-  color: #f2e9ff;
-  padding: 12px;
-  font-size: 1rem;
-  font-family: inherit;
-  resize: vertical;
-}
-
-.button-row {
+.nav {
   display: flex;
-  gap: 10px;
-  margin-top: 16px;
+  gap: var(--sp-1);
   flex-wrap: wrap;
 }
 
-.btn {
-  border: none;
+.nav__link {
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: var(--sp-2) var(--sp-4);
+  border: 1px solid transparent;
   border-radius: 999px;
-  padding: 10px 22px;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: transform 0.15s ease, opacity 0.15s ease;
+  transition: color var(--dur-fast), border-color var(--dur-fast),
+    background-color var(--dur-fast);
+}
+
+.nav__link:hover {
+  color: var(--gilt-bright);
+  background: rgba(200, 164, 89, 0.08);
+}
+
+.nav__link[aria-current="page"] {
+  color: var(--gilt-bright);
+  border-color: var(--gilt-hair);
+  background: rgba(200, 164, 89, 0.1);
+}
+
+/* ---------- 4. ผ้าปูไพ่: กรอบเส้นทองคู่ พร้อมข้าวหลามตัดกลางกรอบ ---------- */
+
+.cloth {
+  position: relative;
+  margin-top: var(--sp-6);
+  padding: clamp(var(--sp-5), 4vw, var(--sp-7));
+  background: linear-gradient(
+    170deg,
+    rgba(29, 20, 64, 0.72),
+    rgba(15, 10, 33, 0.72)
+  );
+  border: 1px solid var(--gilt-hair);
+  border-radius: var(--radius-panel);
+  box-shadow: inset 0 0 0 5px rgba(11, 7, 20, 0.45),
+    inset 0 0 0 6px var(--gilt-hair), var(--lift-2);
+}
+
+/* ข้าวหลามตัดทองวางคาบเส้นกรอบบน–ล่าง แบบใบประกาศนียบัตร */
+.cloth::before,
+.cloth::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  margin-left: -4.5px;
+  background: var(--gilt);
+  transform: rotate(45deg);
+  box-shadow: 0 0 0 4px var(--velvet);
+}
+
+.cloth::before {
+  top: -5px;
+}
+
+.cloth::after {
+  bottom: -5px;
+}
+
+.view-head {
+  text-align: center;
+  margin-bottom: var(--sp-6);
+}
+
+.view-head h2 {
+  font-size: var(--step-3);
+  color: var(--stock);
+  margin-top: var(--sp-2);
+}
+
+.view-head .lede {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---------- 5. ปุ่ม ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 0.7rem 1.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--gilt-hair);
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  letter-spacing: var(--tracking-wide);
+  transition: background-color var(--dur-fast), color var(--dur-fast),
+    border-color var(--dur-fast), transform var(--dur-fast);
 }
 
 .btn:hover {
-  transform: translateY(-1px);
+  border-color: var(--gilt);
+  color: var(--gilt-bright);
+  background: rgba(200, 164, 89, 0.08);
 }
 
-.btn-primary {
-  background: linear-gradient(90deg, #ff8ac9, #a48bff);
-  color: #180a2e;
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--gold {
+  background: linear-gradient(180deg, var(--gilt-bright), var(--gilt));
+  border-color: var(--gilt-bright);
+  color: #241a06;
   font-weight: 600;
 }
 
-.btn-secondary {
-  background: rgba(255, 255, 255, 0.1);
-  color: #f2e9ff;
+.btn--gold:hover {
+  background: linear-gradient(180deg, #f3e6c4, var(--gilt-bright));
+  color: #241a06;
 }
 
-.deck-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
-  gap: 6px;
-  margin-top: 16px;
+.btn--quiet {
+  border-color: transparent;
+  color: var(--text-dim);
 }
 
-.deck-card {
-  aspect-ratio: 2 / 3;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: repeating-linear-gradient(135deg, #3a1f66 0 8px, #331a58 8px 16px);
-  padding: 0;
-  cursor: pointer;
-  overflow: hidden;
-  transition: transform 0.15s ease;
+.btn--danger:hover {
+  border-color: var(--ink-wands);
+  color: var(--ink-wands);
+  background: rgba(194, 101, 58, 0.1);
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  justify-content: center;
+  margin-top: var(--sp-6);
+}
+
+/* ---------- 6. ขั้นตอน: เลขโรมัน (ลำดับนี้มีความหมายจริง) ---------- */
+
+.rail {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-6);
+  flex-wrap: wrap;
 }
 
-.deck-card:hover {
-  transform: translateY(-4px) scale(1.03);
+.rail__step {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-faint);
+  background: none;
+  border: 0;
+  padding: var(--sp-1) var(--sp-2);
 }
 
-.deck-card-back {
-  color: rgba(255, 255, 255, 0.35);
-  font-size: 1.1rem;
+.rail__step[data-state="done"] {
+  color: var(--text-dim);
 }
 
-.deck-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+.rail__step[data-state="current"] {
+  color: var(--gilt-bright);
 }
 
-.reading-summary {
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
-  padding: 16px;
-  margin: 16px 0;
-  line-height: 1.6;
+.rail__step[disabled] {
+  cursor: default;
 }
 
-.result-grid {
+.rail__num {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
+  place-items: center;
+  width: 1.9em;
+  height: 1.9em;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: 0.78em;
+  opacity: 0.85;
 }
 
-.result-card {
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+.rail__step[data-state="current"] .rail__num {
+  background: var(--gilt);
+  border-color: var(--gilt);
+  color: #241a06;
+  opacity: 1;
+}
+
+.rail__sep {
+  width: 1.75rem;
+  height: 1px;
+  background: var(--gilt-hair);
+}
+
+/* ---------- 7. การ์ดตัวเลือก (หมวด / รูปแบบ) ---------- */
+
+.choices {
+  display: grid;
+  gap: var(--sp-4);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.choice {
+  position: relative;
   display: flex;
   flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-5);
+  text-align: left;
+  background: rgba(11, 7, 20, 0.5);
+  border: 1px solid var(--plum-line);
+  border-radius: var(--radius-panel);
+  color: var(--text);
+  transition: border-color var(--dur-fast), background-color var(--dur-fast),
+    transform var(--dur-fast);
 }
 
-.result-card-image {
-  aspect-ratio: 2 / 3;
+.choice:hover {
+  border-color: var(--gilt);
+  background: rgba(29, 20, 64, 0.66);
+  transform: translateY(-3px);
+}
+
+.choice__glyph {
+  width: 2.4rem;
+  height: 2.4rem;
+  color: var(--gilt);
+}
+
+.choice__title {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  letter-spacing: 0.02em;
+  color: var(--stock);
+}
+
+.choice__desc {
+  font-size: var(--step--1);
+  color: var(--text-dim);
+  line-height: 1.65;
+}
+
+.choice__count {
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--gilt);
+}
+
+/* ---------- 8. ช่องคำถาม ---------- */
+
+.ask {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.ask__field {
+  width: 100%;
+  min-height: 7rem;
+  padding: var(--sp-4);
+  resize: vertical;
+  color: var(--text);
+  background: rgba(11, 7, 20, 0.55);
+  border: 1px solid var(--plum-line);
+  border-radius: var(--radius-panel);
+  font-family: var(--font-body);
+  font-size: var(--step-1);
+  line-height: 1.7;
+}
+
+.ask__field::placeholder {
+  color: var(--text-faint);
+}
+
+.ask__field:focus {
+  outline: none;
+  border-color: var(--gilt);
+  box-shadow: 0 0 0 3px var(--gilt-glow);
+}
+
+.ask__hint {
+  font-size: var(--step--1);
+  color: var(--text-faint);
+  margin: var(--sp-2) 0 0;
+}
+
+/* ---------- 9. ไพ่ (องค์ประกอบหลัก) ---------- */
+
+.card {
+  position: relative;
+  aspect-ratio: 585 / 1000;
+  perspective: 1200px;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+/* ปุ่มโปร่งใสที่ครอบไพ่ไว้ เพื่อให้กดดูรายละเอียดได้โดยไม่เปลี่ยนหน้าตาไพ่ */
+.card-btn {
+  all: unset;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+}
+
+.card-btn:focus-visible {
+  outline: 2px solid var(--gilt);
+  outline-offset: 4px;
+}
+
+.card__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform var(--dur-slow) var(--ease-in-out);
+}
+
+.card.is-revealed .card__inner {
+  transform: rotateY(180deg);
+}
+
+.card__face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--radius-card);
   overflow: hidden;
+  box-shadow: var(--lift-1);
 }
 
-.result-card-image img {
+/* หลังไพ่: ลายตารางข้าวหลามตัดทองบนพื้นม่วงเข้ม + ดวงตรากลางใบ */
+.card__face--back {
+  background-color: #211444;
+  background-image: repeating-linear-gradient(
+      45deg,
+      rgba(200, 164, 89, 0.16) 0 1px,
+      transparent 1px 9px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(200, 164, 89, 0.16) 0 1px,
+      transparent 1px 9px
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(200, 164, 89, 0.3) 0 3%,
+      transparent 3.5% 12%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 0 14%,
+      rgba(200, 164, 89, 0.24) 14% 14.6%,
+      transparent 15%
+    );
+  border: 1px solid rgba(200, 164, 89, 0.34);
+}
+
+.card__face--front {
+  transform: rotateY(180deg);
+  background: var(--stock);
+  border: 1px solid rgba(200, 164, 89, 0.3);
+}
+
+.card__face--front img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
+  transition: transform var(--dur) var(--ease-out);
 }
 
-.result-card-image.is-reversed img {
+.card.is-reversed .card__face--front img {
   transform: rotate(180deg);
 }
 
-.result-card-body {
-  padding: 12px 14px 16px;
-}
+/* ---------- 10. กางไพ่เป็นพัด ---------- */
 
-.result-card-body h3 {
-  margin: 0 0 4px;
-  font-size: 1rem;
-}
-
-.orientation-tag {
-  display: inline-block;
-  font-size: 0.75rem;
-  padding: 2px 10px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
-  margin: 0 0 8px;
-}
-
-.app-footer {
+.fan-panel {
   text-align: center;
-  color: #8f7ab8;
-  font-size: 0.8rem;
-  margin-top: 40px;
 }
 
-@media (max-width: 600px) {
-  .app-header h1 {
-    font-size: 1.5rem;
+.fan-status {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-wide);
+  color: var(--gilt-bright);
+  margin: 0 0 var(--sp-2);
+}
+
+/* พัดไพ่: 78 ใบกางเป็นส่วนโค้งราว 78 องศา หมุนรอบจุดหมุนที่อยู่ใต้ใบไพ่ลงไปมาก
+   เพื่อให้ส่วนโค้งตื้นเหมือนถือไพ่จริง ไม่ใช่วงกลมเต็มวง */
+.fan {
+  position: relative;
+  height: clamp(13rem, 24vw, 17rem);
+  margin: var(--sp-6) auto var(--sp-4);
+  --fan-step: 1deg;
+  --fan-w: clamp(3.6rem, 6.5vw, 5.2rem);
+}
+
+.fan.is-shuffling {
+  animation: cloth-shake 520ms var(--ease-in-out);
+}
+
+.fan__card {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: var(--fan-w);
+  padding: 0;
+  border: 0;
+  background: none;
+  --rot: calc((var(--i) - var(--mid)) * var(--fan-step));
+  transform-origin: 50% 330%;
+  transform: translateX(-50%) rotate(var(--rot));
+  transition: transform var(--dur) var(--ease-out), opacity var(--dur);
+  cursor: pointer;
+}
+
+.fan.is-shuffling .fan__card {
+  transform: translateX(-50%) rotate(0deg);
+}
+
+.fan__card:hover,
+.fan__card:focus-visible {
+  transform: translateX(-50%) rotate(var(--rot)) translateY(-1.6rem);
+  z-index: 20;
+}
+
+.fan__card.is-taken {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) rotate(var(--rot)) translateY(-7rem) scale(0.85);
+}
+
+@keyframes cloth-shake {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg);
   }
-  .deck-grid {
-    grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+  25% {
+    transform: translateX(-8px) rotate(-1.2deg);
+  }
+  50% {
+    transform: translateX(7px) rotate(1deg);
+  }
+  75% {
+    transform: translateX(-4px) rotate(-0.5deg);
+  }
+}
+
+/* ช่องไพ่ที่จั่วแล้ว วางอยู่ใต้พัด */
+.slots {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  /* ปลายพัดสองข้างตวัดลงมาต่ำกว่ากรอบ จึงต้องเว้นระยะให้ช่องไพ่ไม่ถูกทับ */
+  margin-top: var(--sp-7);
+}
+
+.slot {
+  width: clamp(3.4rem, 6vw, 4.6rem);
+  aspect-ratio: 585 / 1000;
+  border: 1px dashed var(--plum-line);
+  border-radius: var(--radius-card);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  color: var(--text-faint);
+}
+
+.slot.is-filled {
+  border-style: solid;
+  border-color: var(--gilt-hair);
+  background-color: #211444;
+  background-image: repeating-linear-gradient(
+      45deg,
+      rgba(200, 164, 89, 0.16) 0 1px,
+      transparent 1px 8px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(200, 164, 89, 0.16) 0 1px,
+      transparent 1px 8px
+    );
+  color: transparent;
+  animation: slot-land var(--dur) var(--ease-out);
+}
+
+@keyframes slot-land {
+  from {
+    transform: translateY(-1.5rem) scale(0.9);
+    opacity: 0;
+  }
+}
+
+/* ---------- 11. ผังการวางไพ่ตามรูปแบบ ---------- */
+
+.spread {
+  display: grid;
+  gap: clamp(var(--sp-3), 2vw, var(--sp-5));
+  justify-content: center;
+  margin: 0 auto var(--sp-6);
+}
+
+.spread--single {
+  grid-template-columns: minmax(0, 15rem);
+}
+
+.spread--three {
+  grid-template-columns: repeat(3, minmax(0, 11rem));
+}
+
+/* Celtic Cross ของจริง: ไพ่ใบที่ 2 วางขวางทับใบที่ 1 และเสาไพ่ 7–10 อ่านจากล่างขึ้นบน */
+.spread--celtic-cross {
+  grid-template-columns: repeat(3, minmax(0, 8.5rem)) minmax(0, 8.5rem);
+  grid-template-areas:
+    ".    p5   .    p10"
+    "p4   cross p6  p9"
+    ".    p3   .    p8"
+    ".    .    .    p7";
+  align-items: center;
+}
+
+.spread--celtic-cross .pos-1 {
+  grid-area: cross;
+}
+.spread--celtic-cross .pos-3 {
+  grid-area: p3;
+}
+.spread--celtic-cross .pos-4 {
+  grid-area: p4;
+}
+.spread--celtic-cross .pos-5 {
+  grid-area: p5;
+}
+.spread--celtic-cross .pos-6 {
+  grid-area: p6;
+}
+.spread--celtic-cross .pos-7 {
+  grid-area: p7;
+}
+.spread--celtic-cross .pos-8 {
+  grid-area: p8;
+}
+.spread--celtic-cross .pos-9 {
+  grid-area: p9;
+}
+.spread--celtic-cross .pos-10 {
+  grid-area: p10;
+}
+
+.spread--celtic-cross .pos-2 {
+  grid-area: cross;
+  align-self: center;
+  justify-self: center;
+  width: 88%;
+  transform: rotate(90deg);
+  z-index: 3;
+}
+
+.spread--celtic-cross .pos-2 .laid__label {
+  transform: rotate(-90deg);
+}
+
+.laid {
+  position: relative;
+}
+
+.laid__label {
+  display: block;
+  margin-top: var(--sp-2);
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  letter-spacing: var(--tracking-wide);
+  color: var(--gilt);
+  text-align: center;
+}
+
+.laid .card {
+  width: 100%;
+  animation: laid-in var(--dur) var(--ease-out) backwards;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+@keyframes laid-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.2rem);
+  }
+}
+
+/* ---------- 12. คำทำนาย ---------- */
+
+.summary {
+  max-width: var(--measure);
+  margin: 0 auto var(--sp-7);
+  padding: var(--sp-5) var(--sp-5) var(--sp-5) var(--sp-6);
+  border-left: 2px solid var(--gilt);
+  background: rgba(11, 7, 20, 0.4);
+  color: var(--text);
+}
+
+.summary__q {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  color: var(--stock);
+  margin-bottom: var(--sp-3);
+  line-height: 1.4;
+}
+
+.readings {
+  display: grid;
+  gap: var(--sp-5);
+}
+
+.reading {
+  display: grid;
+  grid-template-columns: minmax(0, 8.5rem) minmax(0, 1fr);
+  gap: var(--sp-5);
+  align-items: start;
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--gilt-hair);
+}
+
+.reading:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.reading__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-2);
+}
+
+.reading__position {
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--gilt);
+}
+
+.reading__name {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  color: var(--stock);
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.1rem 0.7rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: var(--step--1);
+  letter-spacing: var(--tracking-wide);
+  line-height: 1.7;
+}
+
+.tag--upright {
+  color: var(--gilt);
+}
+
+.tag--reversed {
+  color: var(--ink-wands);
+}
+
+.reading__topic {
+  color: var(--text);
+  margin: var(--sp-3) 0 0;
+}
+
+.reading__meaning {
+  color: var(--text-dim);
+  margin: var(--sp-2) 0 0;
+}
+
+.keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-top: var(--sp-3);
+  padding: 0;
+  list-style: none;
+}
+
+.keywords li {
+  font-size: var(--step--1);
+  color: var(--text-faint);
+  padding: 0.05rem 0.65rem;
+  border: 1px solid var(--plum-line);
+  border-radius: 999px;
+}
+
+/* ---------- 13. ไพ่ประจำวัน ---------- */
+
+.daily {
+  display: grid;
+  gap: var(--sp-6);
+  grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
+  align-items: center;
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+.daily--empty {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  text-align: center;
+}
+
+.daily__date {
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--gilt);
+}
+
+.daily__name {
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  color: var(--stock);
+  margin: var(--sp-2) 0 var(--sp-3);
+}
+
+/* ---------- 14. คลังไพ่ ---------- */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--sp-6);
+}
+
+.search {
+  flex: 1 1 16rem;
+  max-width: 22rem;
+  padding: 0.6rem var(--sp-4);
+  background: rgba(11, 7, 20, 0.55);
+  border: 1px solid var(--plum-line);
+  border-radius: 999px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+}
+
+.search::placeholder {
+  color: var(--text-faint);
+}
+
+.search:focus {
+  outline: none;
+  border-color: var(--gilt);
+  box-shadow: 0 0 0 3px var(--gilt-glow);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  justify-content: center;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--plum-line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-dim);
+  font-size: var(--step--1);
+  letter-spacing: var(--tracking-wide);
+  transition: color var(--dur-fast), border-color var(--dur-fast),
+    background-color var(--dur-fast);
+}
+
+.chip:hover {
+  color: var(--text);
+  border-color: var(--gilt-hair);
+}
+
+.chip[aria-pressed="true"] {
+  color: var(--gilt-bright);
+  border-color: var(--gilt);
+  background: rgba(200, 164, 89, 0.1);
+}
+
+.chip__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.library {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+  gap: var(--sp-4);
+}
+
+.lib-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: 0;
+  background: none;
+  border: 0;
+  text-align: center;
+  color: var(--text);
+}
+
+.lib-card__art {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  border: 1px solid var(--plum-line);
+  aspect-ratio: 585 / 1000;
+  transition: border-color var(--dur-fast), transform var(--dur-fast),
+    box-shadow var(--dur-fast);
+}
+
+.lib-card:hover .lib-card__art {
+  border-color: var(--gilt);
+  transform: translateY(-4px);
+  box-shadow: var(--lift-2);
+}
+
+.lib-card__art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lib-card__name {
+  font-size: var(--step--1);
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+.lib-card__suit {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+}
+
+/* กล่องรายละเอียดไพ่ */
+.sheet {
+  width: min(48rem, calc(100vw - 2rem));
+  padding: 0;
+  border: 1px solid var(--gilt-hair);
+  border-radius: var(--radius-panel);
+  background: var(--velvet);
+  color: var(--text);
+  box-shadow: var(--lift-3);
+}
+
+.sheet::backdrop {
+  background: rgba(6, 4, 12, 0.82);
+}
+
+.sheet__body {
+  display: grid;
+  grid-template-columns: minmax(0, 13rem) minmax(0, 1fr);
+  gap: var(--sp-5);
+  padding: var(--sp-6);
+}
+
+.sheet__close {
+  position: absolute;
+  top: var(--sp-3);
+  right: var(--sp-3);
+  width: 2.2rem;
+  height: 2.2rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--plum-line);
+  background: rgba(11, 7, 20, 0.6);
+  color: var(--text-dim);
+}
+
+.sheet__close:hover {
+  color: var(--gilt-bright);
+  border-color: var(--gilt);
+}
+
+.meaning-block + .meaning-block {
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--gilt-hair);
+}
+
+.meaning-block h4 {
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  letter-spacing: var(--tracking-wide);
+  margin: 0 0 var(--sp-2);
+}
+
+.meaning-block p {
+  margin: 0;
+  color: var(--text-dim);
+}
+
+.topic-list {
+  list-style: none;
+  margin: var(--sp-3) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--sp-2);
+}
+
+.topic-list strong {
+  font-family: var(--font-display);
+  color: var(--gilt);
+  letter-spacing: var(--tracking-wide);
+  font-weight: 500;
+}
+
+/* ---------- 15. ประวัติ ---------- */
+
+.history {
+  display: grid;
+  gap: var(--sp-4);
+  max-width: 46rem;
+  margin: 0 auto;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--sp-4);
+  align-items: center;
+  padding: var(--sp-4) var(--sp-5);
+  background: rgba(11, 7, 20, 0.45);
+  border: 1px solid var(--plum-line);
+  border-radius: var(--radius-panel);
+  transition: border-color var(--dur-fast);
+}
+
+.entry:hover {
+  border-color: var(--gilt-hair);
+}
+
+.entry__meta {
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  letter-spacing: var(--tracking-wide);
+  color: var(--gilt);
+}
+
+.entry__q {
+  color: var(--stock);
+  margin: var(--sp-1) 0;
+}
+
+.entry__cards {
+  font-size: var(--step--1);
+  color: var(--text-dim);
+}
+
+.entry__actions {
+  display: flex;
+  gap: var(--sp-2);
+}
+
+/* ---------- 16. สถานะว่าง ---------- */
+
+.empty {
+  text-align: center;
+  padding: var(--sp-7) var(--sp-4);
+  color: var(--text-dim);
+}
+
+.empty__glyph {
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto var(--sp-4);
+  color: var(--gilt-deep);
+}
+
+/* ---------- 17. ท้ายหน้า ---------- */
+
+.colophon {
+  margin-top: var(--sp-8);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--gilt-hair);
+  text-align: center;
+  font-size: var(--step--1);
+  color: var(--text-faint);
+  line-height: 1.9;
+}
+
+.colophon a {
+  color: var(--text-dim);
+}
+
+/* ---------- 18. จอเล็ก ---------- */
+
+@media (max-width: 60rem) {
+  .spread--celtic-cross {
+    grid-template-columns: repeat(2, minmax(0, 9rem));
+    grid-template-areas: none;
+  }
+
+  .spread--celtic-cross .laid {
+    grid-area: auto !important;
+  }
+
+  .spread--celtic-cross .pos-2 {
+    width: 100%;
+    transform: none;
+  }
+
+  .spread--celtic-cross .pos-2 .laid__label {
+    transform: none;
+  }
+
+  .sheet__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 48rem) {
+  .reading {
+    grid-template-columns: minmax(0, 5.5rem) minmax(0, 1fr);
+    gap: var(--sp-4);
+  }
+
+  .spread--three {
+    grid-template-columns: repeat(3, minmax(0, 6.5rem));
+  }
+
+  .daily {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    text-align: center;
+  }
+
+  .daily__art {
+    max-width: 13rem;
+  }
+
+  .entry {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* จอเล็กแตะไพ่ในพัดยาก จึงเปลี่ยนเป็นแถวไพ่ซ้อนกันที่เลื่อนได้ */
+  .fan {
+    height: auto;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: var(--sp-5) 45vw var(--sp-5) var(--sp-4);
+    margin-inline: calc(var(--sp-4) * -1);
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .fan__card {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    flex: none;
+    width: 5.4rem;
+    margin-right: -3.4rem;
+    transform: none;
+    transform-origin: center;
+    scroll-snap-align: center;
+  }
+
+  .fan__card:hover,
+  .fan__card:focus-visible {
+    transform: translateY(-0.9rem);
+  }
+
+  .fan.is-shuffling .fan__card,
+  .fan__card.is-taken {
+    transform: none;
+  }
+
+  .fan__card.is-taken {
+    opacity: 0;
+    width: 0;
+    margin-right: 0;
+  }
+}
+
+/* ---------- 19. เคารพการตั้งค่าลดการเคลื่อนไหว ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
   }
 }
