@@ -753,6 +753,41 @@ h3 {
   line-height: 1.4;
 }
 
+/* กล่องขอให้ AI ช่วยเรียบเรียง — ทรงเดียวกับ .summary แต่เส้นขอบเป็นทองเข้มกว่าเพื่อแยกว่าเป็นเสียงคนละคน */
+.ai-panel {
+  max-width: var(--measure);
+  margin: 0 auto var(--sp-7);
+}
+
+.ai-panel__body {
+  padding: var(--sp-5) var(--sp-6);
+  border: 1px solid var(--gilt-hair);
+  border-radius: var(--radius-panel);
+  background: rgba(29, 20, 64, 0.4);
+  text-align: center;
+}
+
+.ai-panel__body:has(.ai-panel__text) {
+  text-align: left;
+}
+
+.ai-panel__loading {
+  color: var(--text-dim);
+  margin: 0;
+}
+
+.ai-panel__text {
+  color: var(--text);
+  line-height: 1.85;
+  margin: var(--sp-2) 0 0;
+  white-space: pre-line;
+}
+
+.ai-panel__error {
+  color: var(--ink-wands);
+  margin: 0 0 var(--sp-3);
+}
+
 .readings {
   display: grid;
   gap: var(--sp-5);
@@ -1109,6 +1144,15 @@ h3 {
 .entry__cards {
   font-size: var(--step--1);
   color: var(--text-dim);
+}
+
+.entry__ai {
+  margin-top: var(--sp-3);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--gilt-hair);
+  font-size: var(--step--1);
+  color: var(--text-dim);
+  line-height: 1.7;
 }
 
 .entry__actions {

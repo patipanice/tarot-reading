@@ -1,0 +1,16 @@
+name = "tarot-interpret"
+main = "src/index.js"
+compatibility_date = "2026-08-01"
+
+# ให้เว็บ GitHub Pages เรียกเข้ามาได้ (ปรับเป็นโดเมนของคุณถ้าย้ายที่โฮสต์)
+[vars]
+ALLOWED_ORIGIN = "https://patipanice.github.io"
+
+# ใช้เก็บตัวนับโควตาต่อวัน (ต่อเครื่อง + ต่อ IP สำรอง)
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "7a8079911ca1475fb296c6e21d234d14"
+
+# Cloudflare Workers AI — ใช้โควตาฟรีของบัญชี ไม่ต้องมี API key/บัตรเครดิตเพิ่ม
+[ai]
+binding = "AI"

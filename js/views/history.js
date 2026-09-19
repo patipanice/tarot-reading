@@ -24,6 +24,11 @@ const HistoryView = (function () {
           </p>
           ${entry.question ? `<p class="entry__q">“${escapeHtml(entry.question)}”</p>` : ""}
           <p class="entry__cards">${escapeHtml(cardNames)}</p>
+          ${
+            entry.aiNarrative
+              ? `<p class="entry__ai">${escapeHtml(entry.aiNarrative)}</p>`
+              : ""
+          }
         </div>
         <div class="entry__actions">
           <button class="btn btn--quiet btn--danger" type="button"

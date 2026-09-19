@@ -48,6 +48,15 @@ function saveReading(entry) {
   return writeStore(STORE_HISTORY, list.slice(0, HISTORY_LIMIT));
 }
 
+/* บันทึกคำทำนายที่ AI แปลไว้ ผูกกับรายการประวัติเดิมด้วย id เดียวกับตอน saveReading */
+function saveAiNarrative(id, narrative) {
+  const list = getHistory();
+  const index = list.findIndex((entry) => entry.id === id);
+  if (index === -1) return false;
+  list[index] = { ...list[index], aiNarrative: narrative };
+  return writeStore(STORE_HISTORY, list);
+}
+
 function deleteReading(id) {
   return writeStore(
     STORE_HISTORY,

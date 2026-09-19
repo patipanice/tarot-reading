@@ -1,6 +1,9 @@
 /* หน้าดูดวง: เลือกเรื่อง → เลือกสเปรด → ตั้งคำถาม → จั่วไพ่ → อ่านผล */
 
 const ReadingView = (function () {
+  /* ต้องตรงกับ DAILY_LIMIT_PER_DEVICE ใน worker/src/index.js — แก้ที่เดียวไม่ sync กันอัตโนมัติ */
+  const AI_DAILY_LIMIT = 5;
+
   const STEPS = [
     { numeral: "I", labelTh: "เรื่องที่ถาม" },
     { numeral: "II", labelTh: "รูปแบบ" },
@@ -19,7 +22,8 @@ const ReadingView = (function () {
       question: "",
       deck: [],
       drawn: [],
-      saved: false
+      saved: false,
+      readingId: null
     };
   }
 
@@ -201,6 +205,8 @@ const ReadingView = (function () {
         <p>${escapeHtml(summarizeReading(state.drawn, topic))}</p>
       </div>
 
+      ${aiPanel()}
+
       <div class="readings">
         ${state.drawn.map((draw) => readingBlock(draw)).join("")}
       </div>
@@ -208,6 +214,19 @@ const ReadingView = (function () {
       <div class="btn-row">
         <button class="btn btn--gold" type="button" data-restart>ดูดวงใหม่อีกครั้ง</button>
         <a class="btn" href="#/history">ดูประวัติที่บันทึกไว้</a>
+      </div>`;
+  }
+
+  function aiPanel() {
+    return `
+      <div class="ai-panel" id="ai-panel">
+        <div class="ai-panel__body" id="ai-panel-body">
+          <button class="btn btn--gold" type="button" data-ask-ai>ให้ AI ช่วยเรียบเรียงคำทำนาย</button>
+          <p class="ask__hint">
+            ส่งเฉพาะไพ่ที่จั่วได้กับคำถามของคุณไปให้ช่วยร้อยเรียงเป็นความเดียว
+            ไม่เกิน ${AI_DAILY_LIMIT} ครั้งต่อวันต่อเครื่อง
+          </p>
+        </div>
       </div>`;
   }
 
@@ -310,8 +329,9 @@ const ReadingView = (function () {
 
   function persist() {
     if (state.saved) return;
+    state.readingId = `r-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     state.saved = saveReading({
-      id: `r-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      id: state.readingId,
       at: Date.now(),
       topicId: state.topic.id,
       spreadId: state.spread.id,
@@ -324,6 +344,31 @@ const ReadingView = (function () {
     });
   }
 
+  function askAi() {
+    const body = root.querySelector("#ai-panel-body");
+    if (!body) return;
+
+    body.innerHTML = `<p class="ai-panel__loading">กำลังให้ AI อ่านไพ่ของคุณ…</p>`;
+
+    requestAiInterpretation({
+      question: state.question,
+      topic: state.topic,
+      spread: state.spread,
+      drawn: state.drawn
+    })
+      .then((narrative) => {
+        if (state.readingId) saveAiNarrative(state.readingId, narrative);
+        body.innerHTML = `
+          <p class="eyebrow" style="color:var(--gilt)">AI ช่วยเรียบเรียง</p>
+          <p class="ai-panel__text">${escapeHtml(narrative)}</p>`;
+      })
+      .catch((error) => {
+        body.innerHTML = `
+          <p class="ai-panel__error">${escapeHtml(error.message)}</p>
+          <button class="btn" type="button" data-ask-ai>ลองอีกครั้ง</button>`;
+      });
+  }
+
   function shuffleAgain() {
     const fan = root.querySelector("#fan");
     if (!fan) return;
@@ -334,7 +379,7 @@ const ReadingView = (function () {
 
   function bind() {
     root.addEventListener("click", (event) => {
-      const target = event.target.closest("[data-topic],[data-spread],[data-goto],[data-skip],[data-confirm],[data-draw],[data-shuffle],[data-restart],[data-open-card]");
+      const target = event.target.closest("[data-topic],[data-spread],[data-goto],[data-skip],[data-confirm],[data-draw],[data-shuffle],[data-restart],[data-open-card],[data-ask-ai]");
       if (!target || !root.contains(target)) return;
 
       if (target.dataset.topic) {
@@ -365,6 +410,8 @@ const ReadingView = (function () {
       } else if (target.dataset.openCard) {
         const card = findCard(target.dataset.openCard);
         if (card) openCardSheet(card);
+      } else if (target.hasAttribute("data-ask-ai")) {
+        askAi();
       }
     });
   }
