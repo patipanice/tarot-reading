@@ -189,8 +189,21 @@ export default {
       return json({ narrative }, 200, headers);
     } catch (error) {
       console.error("interpret failed:", error.message);
+
+      // เดางบ Workers AI (10,000 Neurons/วันของทั้งบัญชี) หมดจากข้อความ error แบบกว้าง ๆ
+      // เพราะ Cloudflare ไม่มี error code ตายตัวให้เช็คแบบชัวร์ 100% — ผิดพลาดได้แต่ปลอดภัยกว่า
+      // การขึ้น error ทั่วไปที่ทำให้ผู้ใช้คิดว่าเป็นบั๊กของเว็บ
+      const budgetExceeded = /quota|budget|capacity|rate.?limit|too many requests/i.test(
+        error.message || ""
+      );
+
       return json(
-        { error: "upstream_error", message: "ขอ AI ช่วยแปลไม่สำเร็จตอนนี้ ลองใหม่อีกครั้งนะ" },
+        budgetExceeded
+          ? {
+              error: "ai_budget_exceeded",
+              message: "ตอนนี้มีคนขอให้ AI ช่วยแปลทั่วทั้งเว็บเยอะจนโควตาฟรีของวันนี้เต็มแล้ว ลองใหม่พรุ่งนี้นะ"
+            }
+          : { error: "upstream_error", message: "ขอ AI ช่วยแปลไม่สำเร็จตอนนี้ ลองใหม่อีกครั้งนะ" },
         502,
         headers
       );
