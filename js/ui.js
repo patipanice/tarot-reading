@@ -1,11 +1,11 @@
 /* ตัวช่วยที่ทุก view ใช้ร่วมกัน */
 
 const SUIT_META = {
-  major: { label: "ชุดใหญ่", glyph: "gl-star", color: "var(--ink-major)" },
-  cups: { label: "ถ้วย", glyph: "gl-cups", color: "var(--ink-cups)" },
-  pentacles: { label: "เหรียญ", glyph: "gl-pentacles", color: "var(--ink-pentacles)" },
-  swords: { label: "ดาบ", glyph: "gl-swords", color: "var(--ink-swords)" },
-  wands: { label: "ไม้เท้า", glyph: "gl-wands", color: "var(--ink-wands)" }
+  major: { label: "ไพ่ชุดใหญ่", glyph: "gl-star", color: "var(--suit-major)" },
+  cups: { label: "ไพ่ชุดถ้วย", glyph: "gl-cups", color: "var(--suit-cups)" },
+  pentacles: { label: "ไพ่ชุดเหรียญ", glyph: "gl-pentacles", color: "var(--suit-pentacles)" },
+  swords: { label: "ไพ่ชุดดาบ", glyph: "gl-swords", color: "var(--suit-swords)" },
+  wands: { label: "ไพ่ชุดไม้เท้า", glyph: "gl-wands", color: "var(--suit-wands)" }
 };
 
 function suitMeta(card) {
@@ -83,19 +83,20 @@ function openCardSheet(card) {
   body.innerHTML = `
     <div>${cardMarkup(card, { revealed: true, lazy: false })}</div>
     <div>
-      <p class="eyebrow" style="color:${meta.color}">
-        ${escapeHtml(card.nameEn)} · ${escapeHtml(meta.label)}
+      <p class="eyebrow">
+        ${escapeHtml(card.nameEn)}
+        <span style="color:${meta.color}">${escapeHtml(meta.label)}</span>
       </p>
-      <h3 class="reading__name" style="margin:.25rem 0 1rem">${escapeHtml(card.nameTh)}</h3>
+      <h3 class="reading__name sheet__title">${escapeHtml(card.nameTh)}</h3>
 
       <div class="meaning-block">
-        <h4 class="tag--upright" style="color:var(--gilt)">หัวตั้ง</h4>
+        <h4>หัวตั้ง</h4>
         <p>${escapeHtml(card.meaningUpright)}</p>
         <ul class="keywords">${card.keywordsUpright.map((k) => `<li>${escapeHtml(k)}</li>`).join("")}</ul>
       </div>
 
       <div class="meaning-block">
-        <h4 style="color:var(--ink-wands)">กลับหัว</h4>
+        <h4>กลับหัว</h4>
         <p>${escapeHtml(card.meaningReversed)}</p>
         <ul class="keywords">${card.keywordsReversed.map((k) => `<li>${escapeHtml(k)}</li>`).join("")}</ul>
       </div>

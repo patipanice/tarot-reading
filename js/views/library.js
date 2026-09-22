@@ -2,12 +2,12 @@
 
 const LibraryView = (function () {
   const GROUPS = [
-    { id: "all", labelTh: "ทั้งหมด", color: "var(--gilt)" },
-    { id: "major", labelTh: "ชุดใหญ่", color: "var(--ink-major)" },
-    { id: "cups", labelTh: "ถ้วย", color: "var(--ink-cups)" },
-    { id: "pentacles", labelTh: "เหรียญ", color: "var(--ink-pentacles)" },
-    { id: "swords", labelTh: "ดาบ", color: "var(--ink-swords)" },
-    { id: "wands", labelTh: "ไม้เท้า", color: "var(--ink-wands)" }
+    { id: "all", labelTh: "ทั้งหมด", color: "var(--ink-3)" },
+    { id: "major", labelTh: "ชุดใหญ่", color: "var(--suit-major)" },
+    { id: "cups", labelTh: "ถ้วย", color: "var(--suit-cups)" },
+    { id: "pentacles", labelTh: "เหรียญ", color: "var(--suit-pentacles)" },
+    { id: "swords", labelTh: "ดาบ", color: "var(--suit-swords)" },
+    { id: "wands", labelTh: "ไม้เท้า", color: "var(--suit-wands)" }
   ];
 
   let root;

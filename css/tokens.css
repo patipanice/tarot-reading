@@ -1,55 +1,50 @@
 /* ============================================================
-   Design tokens — "ผ้าปูไพ่" (the reading cloth)
-   แนวคิด: พื้นหลังคือผ้ากำมะหยี่สีเข้มบนโต๊ะดูดวง ทองคือลายปั๊มฟอยล์บนผ้า
-   และไพ่คือสิ่งเดียวในหน้าจอที่ "เปล่งแสง" — สีทั้งหมดดึงมาจากหมึกพิมพ์
-   ของไพ่ Rider-Waite-Smith ปี 1909 จริง ๆ
+   Design tokens — "ผนังแกลเลอรี"
+   ไพ่คือของชิ้นเดียวในหน้าที่มีสีและลวดลาย ทุกอย่างที่เราวาดเพิ่มจึงเงียบ
+   สีกลางทั้งชุดดึงอุณหภูมิมาจากกระดาษไพ่ RWS (ครีมอมเหลือง) ไม่ใช่เทาอมฟ้า
+   เพื่อให้ภาพไพ่วางบนพื้นแล้วไม่ดูหม่น
+   โครงพื้นผิวมีสองชั้น: mat = พื้นโต๊ะที่ปูไพ่ / paper = แผ่นที่เนื้อหานั่งอยู่
    ============================================================ */
 
 :root {
-  /* ---- พื้นผิว: ผ้ากำมะหยี่ ---- */
-  --void: #0b0714;
-  --velvet: #150e2b;
-  --velvet-raised: #1d1440;
-  --plum-line: #3a2a63;
+  color-scheme: light dark;
 
-  /* ---- ทอง: ลายปั๊มฟอยล์ (ไม่ใช่แสงนีออน) ---- */
-  --gilt: #c8a459;
-  --gilt-bright: #e8d6a6;
-  --gilt-deep: #8c6f34;
-  --gilt-hair: rgba(200, 164, 89, 0.26);
-  --gilt-glow: rgba(200, 164, 89, 0.12);
-
-  /* ---- กระดาษไพ่ ---- */
-  --stock: #ede3cb;
-  --stock-shadow: rgba(11, 7, 20, 0.66);
+  /* ---- พื้นผิว ---- */
+  --mat: #e9e7e2;
+  --paper: #fbfaf8;
+  --rule: #d8d5ce;
+  --rule-soft: #e4e1da;
+  /* หลังไพ่แยกโทนจากพื้น เพื่อให้กองไพ่ยังอ่านออกว่าเป็นวัตถุ ไม่จมไปกับแผ่นกระดาษ */
+  --card-back: #dedbd4;
 
   /* ---- ตัวอักษร ---- */
-  --text: #e7e0f3;
-  --text-dim: #a396c4;
-  --text-faint: #6f6291;
+  --ink: #1a1917;
+  --ink-2: #625f58;
+  --ink-3: #9b978e;
 
-  /* ---- หมึกประจำดอกไพ่ (ดึงจากสีในภาพไพ่จริง) ---- */
-  --ink-cups: #6f9fc0;
-  --ink-pentacles: #869651;
-  --ink-swords: #93a1b5;
-  --ink-wands: #c2653a;
-  --ink-major: #c8a459;
+  /* ---- สลับขั้วสำหรับปุ่มหลัก (ไม่มีสีแบรนด์) ---- */
+  --inverse-bg: #1a1917;
+  --inverse-ink: #fbfaf8;
 
-  /* ---- ตัวอักษร ---- */
-  /* Latin ใช้ Bodoni (หัวเรื่อง) — อักษรไทยจะตกไปที่ Noto Serif Thai เองตามลำดับ fallback */
-  --font-display: "Bodoni Moda", "Noto Serif Thai", "Times New Roman", serif;
-  --font-body: "Noto Sans Thai Looped", "Noto Sans Thai", -apple-system,
-    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* ---- หมึกประจำดอกไพ่: ใช้บอกข้อมูลเท่านั้น ไม่ใช่ของประดับ ---- */
+  --suit-cups: #5b7c99;
+  --suit-pentacles: #6e7a4a;
+  --suit-swords: #6e7480;
+  --suit-wands: #9c5c3c;
+  --suit-major: #7a6a4f;
 
-  --step--1: 0.8125rem;
-  --step-0: 0.9375rem;
-  --step-1: 1.0625rem;
-  --step-2: clamp(1.25rem, 1.05rem + 0.8vw, 1.6rem);
-  --step-3: clamp(1.6rem, 1.2rem + 1.8vw, 2.4rem);
-  --step-4: clamp(2.1rem, 1.4rem + 3.2vw, 3.6rem);
+  /* ---- ตัวอักษร: ตระกูลเดียวกันทั้งคู่ ตัวเลข mono จึงนั่งกับไทยได้สนิท ---- */
+  --font-sans: "IBM Plex Sans Thai", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  --tracking-caps: 0.22em;
-  --tracking-wide: 0.08em;
+  /* สเกลอัตราส่วน 1.25 (major third) */
+  --step--1: 0.8rem;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: clamp(1.35rem, 1.2rem + 0.6vw, 1.5625rem);
+  --step-3: clamp(1.6rem, 1.35rem + 1.1vw, 1.953rem);
+  --step-4: clamp(1.9rem, 1.45rem + 2vw, 2.441rem);
 
   /* ---- ระยะ ---- */
   --sp-1: 0.25rem;
@@ -61,25 +56,41 @@
   --sp-7: 3rem;
   --sp-8: 4.5rem;
 
-  --measure: 62ch;
-  --shell: 74rem;
+  --measure: 68ch;
+  --shell: 70rem;
 
-  /* ---- รูปทรง ---- */
-  --radius-card: 6px;
-  --radius-panel: 3px;
-  --card-ratio: 0.585; /* สัดส่วนไพ่ RWS จริง (กว้าง/สูง) */
+  /* มุมโค้งสงวนไว้ให้ "ไพ่จริง" เท่านั้น ส่วนอื่นเป็นมุมฉากหมด
+     เพื่อให้ความโค้งเป็นสัญญาณว่า "นี่คือไพ่" ไม่ใช่การตกแต่ง */
+  --radius-card: 5px;
+  --card-ratio: 585 / 1000;
 
-  /* ---- เงา ---- */
-  --lift-1: 0 2px 10px rgba(0, 0, 0, 0.45);
-  --lift-2: 0 10px 30px rgba(0, 0, 0, 0.55);
-  --lift-3: 0 22px 60px rgba(0, 0, 0, 0.68);
-
-  /* ---- จังหวะเคลื่อนไหว ---- */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --dur-fast: 180ms;
-  --dur: 420ms;
-  --dur-slow: 760ms;
+  --dur-fast: 150ms;
+  --dur: 380ms;
+  --dur-slow: 620ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --mat: #121211;
+    --paper: #1c1c1a;
+    --rule: #33322f;
+    --rule-soft: #262624;
+    --card-back: #2b2b28;
+
+    --ink: #ecebe6;
+    --ink-2: #a19d94;
+    --ink-3: #6f6c65;
+
+    --inverse-bg: #ecebe6;
+    --inverse-ink: #1a1917;
+
+    --suit-cups: #86a6c0;
+    --suit-pentacles: #9aa672;
+    --suit-swords: #a0a6b0;
+    --suit-wands: #c4805d;
+    --suit-major: #b9a681;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

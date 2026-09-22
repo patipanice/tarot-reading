@@ -14,16 +14,20 @@ const HistoryView = (function () {
         return `${card.nameTh}${item.orientation === "reversed" ? " (กลับหัว)" : ""}`;
       })
       .filter(Boolean)
-      .join(" · ");
+      .join(", ");
 
     return `
       <article class="entry">
         <div>
-          <p class="entry__meta">
-            ${escapeHtml(formatThaiDateTime(entry.at))} · ${escapeHtml(topic.labelTh)} · ${escapeHtml(spread.nameTh)}
+          <p class="entry__meta">${escapeHtml(formatThaiDateTime(entry.at))}</p>
+          ${
+            entry.question
+              ? `<p class="entry__q">“${escapeHtml(entry.question)}”</p>`
+              : `<p class="entry__q">อ่านภาพรวมเรื่อง${escapeHtml(topic.labelTh)}</p>`
+          }
+          <p class="entry__cards">
+            ${escapeHtml(spread.nameTh)} — ${escapeHtml(cardNames)}
           </p>
-          ${entry.question ? `<p class="entry__q">“${escapeHtml(entry.question)}”</p>` : ""}
-          <p class="entry__cards">${escapeHtml(cardNames)}</p>
           ${
             entry.aiNarrative
               ? `<p class="entry__ai">${escapeHtml(entry.aiNarrative)}</p>`

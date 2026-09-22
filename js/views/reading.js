@@ -39,13 +39,13 @@ const ReadingView = (function () {
             number === state.step ? "current" : number < state.step ? "done" : "todo";
           const canReturn = number < state.step;
           return `
-            ${index > 0 ? '<span class="rail__sep"></span>' : ""}
             <button class="rail__step" type="button" data-state="${status}"
-                    data-goto="${number}" ${canReturn ? "" : "disabled"}>
-              <span class="rail__num numeral">${step.numeral}</span>
-              <span>${step.labelTh}</span>
+                    data-goto="${number}" ${canReturn ? "" : "disabled"}
+                    aria-label="ขั้นที่ ${number} ${step.labelTh}">
+              <span class="rail__num">${step.labelTh}</span>
             </button>`;
         }).join("")}
+        <span class="rail-count">${state.step}/${STEPS.length}</span>
       </nav>`;
   }
 
@@ -53,7 +53,6 @@ const ReadingView = (function () {
     return `
       ${rail()}
       <div class="view-head">
-        <p class="eyebrow">ขั้นที่ ๑</p>
         <h2>อยากถามเรื่องอะไร</h2>
         <p class="lede">เลือกเรื่องที่ใจอยู่กับมันมากที่สุดตอนนี้ คำแปลไพ่จะปรับให้ตรงกับเรื่องที่เลือก</p>
       </div>
@@ -73,7 +72,6 @@ const ReadingView = (function () {
     return `
       ${rail()}
       <div class="view-head">
-        <p class="eyebrow">ขั้นที่ ๒</p>
         <h2>จะเปิดไพ่กี่ใบ</h2>
         <p class="lede">ยิ่งหลายใบยิ่งเห็นรายละเอียด แต่ก็ต้องใช้เวลาอ่านมากขึ้นเช่นกัน</p>
       </div>
@@ -93,7 +91,6 @@ const ReadingView = (function () {
     return `
       ${rail()}
       <div class="view-head">
-        <p class="eyebrow">ขั้นที่ ๓</p>
         <h2>อยากถามไพ่ว่าอะไร</h2>
         <p class="lede">
           พิมพ์คำถามในใจไว้ก็ได้ ข้ามไปเลยก็ได้ — คำถามจะไม่เปลี่ยนผลไพ่
@@ -119,7 +116,6 @@ const ReadingView = (function () {
     return `
       ${rail()}
       <div class="view-head">
-        <p class="eyebrow">ขั้นที่ ๔</p>
         <h2>เลือกไพ่ของคุณ</h2>
         <p class="lede">สำรับสับใหม่แล้วด้วยการสุ่มจริง ไม่มีใครรู้ว่าใบไหนอยู่ตรงไหน รวมถึงตัวเว็บเอง</p>
       </div>
@@ -173,7 +169,7 @@ const ReadingView = (function () {
 
     return `
       <div class="view-head">
-        <p class="eyebrow">${escapeHtml(topic.labelTh)} · ${escapeHtml(state.spread.nameTh)}</p>
+        <p class="eyebrow">ดูเรื่อง${escapeHtml(topic.labelTh)} แบบ${escapeHtml(state.spread.nameTh)}</p>
         <h2>ไพ่ตอบไว้แบบนี้</h2>
       </div>
 
@@ -249,8 +245,9 @@ const ReadingView = (function () {
             ${orientationTag(draw.orientation)}
           </div>
           <h3 class="reading__name">${escapeHtml(draw.card.nameTh)}</h3>
-          <p class="eyebrow" style="color:${meta.color};margin-top:.35rem">
-            ${escapeHtml(draw.card.nameEn)} · ${escapeHtml(meta.label)}
+          <p class="eyebrow">
+            ${escapeHtml(draw.card.nameEn)}
+            <span style="color:${meta.color}">${escapeHtml(meta.label)}</span>
           </p>
           <p class="reading__topic">${escapeHtml(reading.topicLine)}</p>
           <p class="reading__meaning">${escapeHtml(reading.meaning)}</p>
@@ -359,7 +356,7 @@ const ReadingView = (function () {
       .then((narrative) => {
         if (state.readingId) saveAiNarrative(state.readingId, narrative);
         body.innerHTML = `
-          <p class="eyebrow" style="color:var(--gilt)">AI ช่วยเรียบเรียง</p>
+          <p class="eyebrow">AI ช่วยเรียบเรียง</p>
           <p class="ai-panel__text">${escapeHtml(narrative)}</p>`;
       })
       .catch((error) => {

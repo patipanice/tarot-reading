@@ -11,7 +11,7 @@ const DailyView = (function () {
   function invite() {
     return `
       <div class="view-head">
-        <p class="eyebrow">${escapeHtml(formatThaiDate(Date.now()))}</p>
+        <p class="daily__date">${escapeHtml(formatThaiDate(Date.now()))}</p>
         <h2>ไพ่ประจำวันนี้</h2>
         <p class="lede">
           เปิดได้วันละใบ ใบที่เปิดแล้วจะอยู่กับคุณทั้งวัน แล้วเริ่มใหม่พรุ่งนี้
@@ -35,7 +35,7 @@ const DailyView = (function () {
 
     return `
       <div class="view-head">
-        <p class="eyebrow">${escapeHtml(formatThaiDate(saved.at))}</p>
+        <p class="daily__date">${escapeHtml(formatThaiDate(saved.at))}</p>
         <h2>ไพ่ประจำวันนี้</h2>
       </div>
       <div class="daily">
@@ -49,8 +49,9 @@ const DailyView = (function () {
           </button>
         </div>
         <div>
-          <p class="eyebrow" style="color:${meta.color}">
-            ${escapeHtml(card.nameEn)} · ${escapeHtml(meta.label)}
+          <p class="eyebrow">
+            ${escapeHtml(card.nameEn)}
+            <span style="color:${meta.color}">${escapeHtml(meta.label)}</span>
           </p>
           <h3 class="daily__name">${escapeHtml(card.nameTh)}</h3>
           ${orientationTag(saved.orientation)}
